@@ -1,7 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
 import json
-import sys
 
 #The GitHub followers of a profile are in a slightly different url.
 #We will add "?tab=followers" into the url we already have.
