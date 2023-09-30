@@ -28,3 +28,11 @@ After these have been installed, you should be good to go. 👍
 ---
 * Some GitHub users have not defined a **Name** for their account. This is taken into account and handled as
   an exception. There's a placeholder created for these instances when writing the Excel file.
+
+🚯Before you scrape
+---
+This program only scrapes data that has been, willingly, made **public** by GitHub users. It is **not** built in
+a way that encourages malicious actions, like spam. It is, instead, built for **research** purposes to help its
+users figure out how the followership of a selected profile has developed.
+
+[Read the GitHub Acceptance Use Policy by clicking this!](https://docs.github.com/en/site-policy/acceptable-use-policies/github-acceptable-use-policies)
