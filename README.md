@@ -36,3 +36,9 @@ a way that encourages malicious actions, like spam. It is, instead, built for **
 users figure out how the followership of a selected profile has developed.
 
 [Read the GitHub Acceptance Use Policy by clicking this!](https://docs.github.com/en/site-policy/acceptable-use-policies/github-acceptable-use-policies)
+
+🔧 Tools
+---
+The program comes with a tool for archiving follower data. This tool of preservation protects the data from being
+overwritten. You can use the tool by executing **archiver.py**. It copies the data from **followerdata.json** and
+then copies that data into another JSON file that has a name not being used.
