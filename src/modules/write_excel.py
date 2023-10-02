@@ -6,51 +6,76 @@ import json                    #Fetching the JSON data
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 from variables.values import Values
 
-#Getting the follower data from followerdata.json
-def getData(values):
+
+def getFollowerData(values):
+    """
+    Fetches the follower data from followerdata.json
+
+    Args:
+        values (Values): A class full of defined values
+    Returns:
+        dict: The JSON content from the file
+    """
     try:      
-        jsonDataFileName = "src/followerdata/followerdata.json"
-        jsonDataFile = open(jsonDataFileName, "r")
+        jsonDataFile = open(values.NEW_JSON_FILE, "r")
         jsonContent = json.load(jsonDataFile)
         return jsonContent
     except Exception:
         print(values.EXCEPTION_DEFAULT + Exception)
 
-#Writing the content that will be the same no matter what
-def excelWriteDefault(workSheet):
+
+def excelWriteDefaults(workSheet):
+    """
+    Adding the default components in the Excel file that won't be changed
+
+    Args:
+        workSheet (openpyxl): The worksheet where the changes are appended
+    """
     workSheet.cell(row=1, column=1).value = "Usernames" 
     workSheet.cell(row=1, column=2).value = "Names"
 
-#Adjusting the lengths of the columns based on the longest data string
+
 def excelChangeColumnWidth(workSheet, widthList):
+    """
+    Adjusting the lengths of the columns based on the longest data string
+    """
     columnList = ["A", "B"]
-    iteration = 0
-    while iteration < len(columnList):
+    for iteration in range(0, (len(columnList)-1)):
         workSheet.column_dimensions[columnList[iteration]].width = widthList[iteration] + 2
-        iteration += 1
         
+
 def excelWritingProcess(values, followerData):
+    """
+    Writing the data into the Excel file
+
+    Args:
+        values (Values): A class full of defined values
+        followerData(dict): The data that will be written
+    """
     try:
+        #Dividing the data into usernames and names
         followerUsernames = followerData["content"][1]["usernames"]
         followerNames = followerData["content"][0]["names"]
 
+        #Setting up the workbook and a worksheet
         wb = Workbook()
         workSheet = wb.worksheets[0]
-        workSheet.title = "FollowTracker"
+        workSheet.title = values.EXCEL_WORKSHEET_TITLE
 
-        excelWriteDefault(workSheet)
+        #Adding the default attributes to the worksheet
+        excelWriteDefaults(workSheet)
 
         widthList = []
         longestLength = 0 #To set width for each column
 
-        longestLength = len("Usernames")
+        longestLength = values.USERNAMES_DEFAULT_WIDTH
         for i, value in enumerate(followerUsernames, start=values.STARTING_ROW):
             workSheet.cell(row=i, column=values.USERNAME_COLUMN).value = value
             if longestLength < len(value):
                 longestLength = len(value)
         widthList.append(longestLength)
 
-        longestLength = len("Names")
+        longestLength = values.NAMES_DEFAULT_WIDTH
         for i, value in enumerate(followerNames, start=values.STARTING_ROW):
 
             #If the GitHub follower hasn't defined a name
@@ -67,10 +92,11 @@ def excelWritingProcess(values, followerData):
     except Exception:
         print(values.EXCEPTION_DEFAULT + Exception)
     
+
 #Main function for writing the data into an Excel file
 def writeFollowerData():
     values = Values()
-    followerData = getData(values)
+    followerData = getFollowerData(values)
     excelWritingProcess(values, followerData)
     print(values.NOTIFY_WRITING_SUCCESSFUL)
 

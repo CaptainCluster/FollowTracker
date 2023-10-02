@@ -6,6 +6,9 @@ from variables.config import Config
 import os
 
 def main():
+    """
+    The main function of the program
+    """
     #Making sure username.txt exists, in order to get the url to scrape data
     if not os.path.exists("src/username.txt"):
         configuration.askProfileName()
@@ -18,7 +21,7 @@ def main():
         usernameFile = open("src/username.txt", "r", encoding="utf-8")
         gitHubUrl = usernameFile.readline()
 
-        gitHubUrlStart = gitHubUrl[:19] #https://github.com/
+        gitHubUrlStart = gitHubUrl[:19] #Meant to be https://github.com/
 
         if len(gitHubUrl) > 20:
             urLDefined = True
@@ -28,13 +31,17 @@ def main():
             configuration.askProfileName()
         usernameFile.close()
 
-        #To prevent unnecessary traffic, user needs to confirm they want to scrape data
+        #To prevent unnecessary traffic, user needs to verify that they want to scrape data
         while(userInputScrape != "Y" and userInputScrape != "n"):
             userInputScrape = input("Do you want to scrape the follower data?: Y = yes, n = no: ")
 
             if userInputScrape == "Y":
+
+                #Scraping and analyzing
                 scraper.scraperProcess()    
                 analyze.compareFollowerLists()
+
+                #Writing the results to Excel, if it's enabled
                 if config.writingToExcel:
                     write_excel.writeFollowerData()
                 break

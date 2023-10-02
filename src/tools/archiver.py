@@ -1,4 +1,4 @@
-#Drive this program to archive old JSON files.
+#Drive this program to archive your follower data so it won't be overwritten.
 
 import os      #Checking if there are available file names
 import sys     #To get a precise import for Values class

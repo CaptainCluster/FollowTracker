@@ -28,10 +28,14 @@ class Values:
 
         ## write_excel.py ##
         self.EXCEL_FILE = "src/followerdata/excel/followerdata.xlsx"
+        self.EXCEL_WORKSHEET_TITLE = "FollowTracker"
 
         self.USERNAME_COLUMN = 1
         self.NAME_COLUMN = 2
         self.STARTING_ROW = 2 #The first row for data insertion
+
+        self.USERNAMES_DEFAULT_WIDTH = len("usernames")
+        self.NAMES_DEFAULT_WIDTH = len("names")
 
         self.NOTIFY_WRITING_SUCCESSFUL = "The data has been successfully written into an Excel file."
         

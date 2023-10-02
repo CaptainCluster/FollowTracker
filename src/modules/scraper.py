@@ -45,16 +45,18 @@ def writeToJson(gitHubData):
     jsonListName = []
     jsonListUsername = []
     jsonFile = open("src/followerdata/followerdata.json", "w")
+
+    #Adding the data into two lists
     for dataType in gitHubData:
         jsonListName.append(dataType["name"])
         jsonListUsername.append(dataType["username"])
-
+    
+    #Formulating the content of the JSON file
     jsonContent = {"content": [{"names": jsonListName}, {"usernames": jsonListUsername}]}
     json.dump(jsonContent, jsonFile)
 
 
 #def compareData():
-#    return None
 
 #The main scraping process
 def scraperProcess():
