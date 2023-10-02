@@ -1,6 +1,10 @@
 from bs4 import BeautifulSoup
 import requests
 import json
+import os 
+import sys
+sys.path.insert(1, os.path.join(sys.path[0], '..'))
+from variables.values import Values
 
 #Retrieving the url from username.txt file
 def getUrl():
@@ -54,7 +58,8 @@ def writeToJson(gitHubData):
 
 #The main scraping process
 def scraperProcess():
+    values = Values()
     gitHubUrl = getUrl()
     gitHubData = scrapeFollowers(gitHubUrl)
     writeToJson(gitHubData)
-    print("Data has been successfully scraped.")
+    print(values.NOTIFY_SCRAPING_SUCCESSFUL)

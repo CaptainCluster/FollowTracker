@@ -5,6 +5,13 @@ class Values:
         self.LOOP_LOWER_RANGE = 1
         self.LOOP_HIGHER_RANGE = 100
 
+        self.NOTIFY_SCRAPING_SUCCESSFUL = "Data has been successfully scraped."
+        
+
+        ## configuration.py ##
+        self.ASK_INPUT_USERNAME = "Type your GitHub username over here: "
+        self.URL_START_GITHUB = "https://github.com/"
+
         ## analyze.py ##
         self.NEW_JSON_FILE = "src/followerdata/followerdata.json"
         self.OLD_JSON_FILE = "src/followerdata/oldfollowerdata.json" 
@@ -27,4 +34,5 @@ class Values:
         self.STARTING_ROW = 2 #The first row for data insertion
 
         self.NOTIFY_WRITING_SUCCESSFUL = "The data has been successfully written into an Excel file."
+        
         
