@@ -6,7 +6,11 @@ class Values:
         self.LOOP_HIGHER_RANGE = 100
 
         self.NOTIFY_SCRAPING_SUCCESSFUL = "Data has been successfully scraped."
-        
+
+        ## main.py ##
+        self.NOTIFY_ENDING_PROGRAM = "Ending the program!"
+        self.NOTIFY_IMPROPER_INPUT = "Give a proper input!"
+        self.REQUEST_SCRAPE = "Do you want to scrape the follower data?: Y = yes, n = no: "
 
         ## configuration.py ##
         self.ASK_INPUT_USERNAME = "Type your GitHub username over here: "
