@@ -6,24 +6,43 @@ import sys
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 from variables.values import Values
 
-#Retrieving the url from username.txt file
+
 def getUrl():
+    """Retrieving the data from username.txt file
+
+    Returns:
+        string: The url in the .txt file
+    """
     userNameFile = open("src/username.txt", "r", encoding="utf-8")
     gitHubUrl = userNameFile.readline() 
     gitHubFollowersUrl = gitHubUrl + "?tab=followers" #https://github.com/[the given username]?tab=followers
     return gitHubFollowersUrl
 
 
-#Putting scraped data into a list
 def appendDataToList(gitHubData):
+    """Putting the scraped data into a list (in .text format)
+
+    Args:
+        gitHubData (list): the raw data
+
+    Returns:
+        list: the processed data
+    """
     dataList = []
     for element in gitHubData:
         dataList.append(element.text)
     return dataList
 
 
-#Scraping all the follower data from a GitHub user.
 def scrapeFollowers(gitHubFollowersUrl):
+    """Scraping all the follower data from a GitHub user.
+
+    Args:
+        gitHubFollowersUrl (string): the url of the GitHub user
+
+    Returns:
+        list: GitHub followers in a list as dictionaries
+    """
     requestContent = requests.get(gitHubFollowersUrl)
     soup = BeautifulSoup(requestContent.content, "html.parser")
 
@@ -43,14 +62,18 @@ def scrapeFollowers(gitHubFollowersUrl):
     return gitHubFollowers
 
 
-#Saving the scraped data to JSON to lower undesired traffic to GitHub
-def writeToJson(gitHubData):
+def writeToJson(gitHubFollowerData):
+    """Saving the scraped data to JSON to lower undesired traffic to GitHub
+
+    Args:
+        gitHubData (list): The follower data in a list
+    """
     jsonListName = []
     jsonListUsername = []
     jsonFile = open("src/followerdata/followerdata.json", "w")
 
     #Adding the data into two lists
-    for dataType in gitHubData:
+    for dataType in gitHubFollowerData:
         jsonListName.append(dataType["name"])
         jsonListUsername.append(dataType["username"])
     
@@ -59,10 +82,9 @@ def writeToJson(gitHubData):
     json.dump(jsonContent, jsonFile)
 
 
-#def compareData():
-
-#The main scraping process
 def scraperProcess():
+    """The main scraping process
+    """
     values = Values()
     gitHubUrl = getUrl()
     gitHubData = scrapeFollowers(gitHubUrl)

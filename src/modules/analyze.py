@@ -1,16 +1,14 @@
 #The differences in follower data are found by comparing the data of
 #two different JSON files. This file makes the process possible,
 
-import json #Fetching the data
-
-## Importing the Values class ##
 import os
 import sys
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 import modules.json_data as json_data
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 from variables.values import Values
-################################
+
+
 
 def compareFollowerLists():
     """ Finding out who has followed and who has unfollowed
