@@ -13,12 +13,14 @@ def getUrl():
     gitHubFollowersUrl = gitHubUrl + "?tab=followers" #https://github.com/[the given username]?tab=followers
     return gitHubFollowersUrl
 
+
 #Putting scraped data into a list
 def appendDataToList(gitHubData):
     dataList = []
     for element in gitHubData:
         dataList.append(element.text)
     return dataList
+
 
 #Scraping all the follower data from a GitHub user.
 def scrapeFollowers(gitHubFollowersUrl):
@@ -28,17 +30,18 @@ def scrapeFollowers(gitHubFollowersUrl):
     gitHubNames = soup.find_all("span", class_="f4 Link--primary")
     gitHubNamesList = appendDataToList(gitHubNames)
 
-    gitHubUsernames = soup.find_all("span", class_="Link--secondary pl-1")
+    gitHubUsernames = soup.find_all("span", class_="Link--secondary")
     gitHubUsernamesList = appendDataToList(gitHubUsernames)
-    
+
     gitHubFollowers = []
-    for i in range (len(gitHubNames) - 3):
+    for i in range (len(gitHubNames)):
         gitHubFollower = {
             "name": gitHubNamesList[i],
             "username": gitHubUsernamesList[i]
         }
         gitHubFollowers.append(gitHubFollower)
     return gitHubFollowers
+
 
 #Saving the scraped data to JSON to lower undesired traffic to GitHub
 def writeToJson(gitHubData):

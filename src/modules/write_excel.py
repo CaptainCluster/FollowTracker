@@ -52,6 +52,7 @@ def excelWritingProcess(values, followerData):
         followedList = changedFollowershipList[0]
         unfollowedList = changedFollowershipList[1]
 
+
         #Setting up the workbook and a worksheet
         wb = Workbook()
         workSheet = wb.worksheets[0]
