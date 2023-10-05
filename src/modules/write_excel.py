@@ -1,27 +1,13 @@
 from openpyxl import Workbook  #Writing the data to an Excel file
 import os                      #Finding available file names
 import sys                     #A precise import for Values class
-import json                    #Fetching the JSON data
+
+sys.path.insert(1, os.path.join(sys.path[0], '..'))
+import modules.json_data as json_data
+import modules.analyze as analyze
 
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 from variables.values import Values
-
-
-def getFollowerData(values):
-    """
-    Fetches the follower data from followerdata.json
-
-    Args:
-        values (Values): A class full of defined values
-    Returns:
-        dict: The JSON content from the file
-    """
-    try:      
-        jsonDataFile = open(values.NEW_JSON_FILE, "r")
-        jsonContent = json.load(jsonDataFile)
-        return jsonContent
-    except Exception:
-        print(values.EXCEPTION_DEFAULT + Exception)
 
 
 def excelWriteDefaults(workSheet):
@@ -33,13 +19,18 @@ def excelWriteDefaults(workSheet):
     """
     workSheet.cell(row=1, column=1).value = "Usernames" 
     workSheet.cell(row=1, column=2).value = "Names"
+    workSheet.cell(row=1, column=3).value = "Links"
+    workSheet.cell(row=1, column=4).value = "Total Followers"
+    workSheet.cell(row=4, column=4).value = "Total Followed"
+    workSheet.cell(row=7, column=4).value = "Total Unfollowed"
+    workSheet.cell(row=10, column=4).value = "Net Change"
 
 
 def excelChangeColumnWidth(workSheet, widthList):
     """
     Adjusting the lengths of the columns based on the longest data string
     """
-    columnList = ["A", "B"]
+    columnList = ["A", "B", "C", "D"]
     for iteration in range(0, (len(columnList)-1)):
         workSheet.column_dimensions[columnList[iteration]].width = widthList[iteration] + 2
         
@@ -57,6 +48,10 @@ def excelWritingProcess(values, followerData):
         followerUsernames = followerData["content"][1]["usernames"]
         followerNames = followerData["content"][0]["names"]
 
+        changedFollowershipList = analyze.compareFollowerLists()
+        followedList = changedFollowershipList[0]
+        unfollowedList = changedFollowershipList[1]
+
         #Setting up the workbook and a worksheet
         wb = Workbook()
         workSheet = wb.worksheets[0]
@@ -67,13 +62,21 @@ def excelWritingProcess(values, followerData):
 
         widthList = []
         longestLength = 0 #To set width for each column
+        linkLongestLength = 0
 
         longestLength = values.USERNAMES_DEFAULT_WIDTH
         for i, value in enumerate(followerUsernames, start=values.STARTING_ROW):
             workSheet.cell(row=i, column=values.USERNAME_COLUMN).value = value
             if longestLength < len(value):
                 longestLength = len(value)
+            #Adding the link as well
+            gitHubUserLink = "https://github.com/" + value
+            workSheet.cell(row=i, column = 3).value = gitHubUserLink
+            if linkLongestLength < len(gitHubUserLink):
+                linkLongestLength = len(gitHubUserLink)
+            
         widthList.append(longestLength)
+        widthList.append(linkLongestLength)
 
         longestLength = values.NAMES_DEFAULT_WIDTH
         for i, value in enumerate(followerNames, start=values.STARTING_ROW):
@@ -85,6 +88,11 @@ def excelWritingProcess(values, followerData):
             if longestLength < len(value):
                 longestLength = len(value)
         widthList.append(longestLength)
+
+        workSheet.cell(row=2, column=4).value = len(followerUsernames)
+        workSheet.cell(row=5, column=4).value = len(followedList)
+        workSheet.cell(row=8, column=4).value = len(unfollowedList)
+        workSheet.cell(row=11, column=4).value = (len(followedList)-len(unfollowedList))
         
         excelChangeColumnWidth(workSheet, widthList)
 
@@ -96,7 +104,7 @@ def excelWritingProcess(values, followerData):
 #Main function for writing the data into an Excel file
 def writeFollowerData():
     values = Values()
-    followerData = getFollowerData(values)
+    followerData = json_data.getJsonData(values.FOLLOWERDATA_FILE_NAME)
     excelWritingProcess(values, followerData)
     print(values.NOTIFY_WRITING_SUCCESSFUL)
 

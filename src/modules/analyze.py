@@ -7,45 +7,49 @@ import json #Fetching the data
 import os
 import sys
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
+import modules.json_data as json_data
+sys.path.insert(1, os.path.join(sys.path[0], '..'))
 from variables.values import Values
 ################################
 
-def getJsonData(jsonDataFileName):
-    jsonDataFile = open(jsonDataFileName, "r")
-    jsonContent = json.load(jsonDataFile)
-    return jsonContent
-
-
 def compareFollowerLists():
-    values = Values()
-    #Next up we will wrap up all the usernames from the old followers list and
-    #iterate the new list by checking if its names are on the old list as well.
-    #If they are, they have been following for some time and are still following.
-    #If someone isn't on the old list, but is on the new one, it means they
-    #have started following. If it's the other way around, they've unfollowed.
-    oldFollowerData = getJsonData(values.OLD_JSON_FILE)["content"][1]["usernames"]
-    newFollowerData = getJsonData(values.NEW_JSON_FILE)["content"][1]["usernames"]
+    """ Finding out who has followed and who has unfollowed
 
-    unfollowedList = []
-    followedList = []
+    Returns:
+        list: A list consisting of two lists: followed & unfollowed
+    """
+    try:
+        values = Values()
+        unfollowedList = []
+        followedList = []
 
-    for username in newFollowerData:
-        isOldFollower = False
-        for oldUsername in oldFollowerData:
-            if oldUsername == username:
-                isOldFollower = True
-        #If the user is not in the old data list, they're a new follower
-        if not isOldFollower:
-            followedList.append(username)
+        #Fetching data from followerdata.json and oldfollowerdata.json
+        oldFollowerData = json_data.getJsonData(values.OLD_JSON_FILE)["content"][1]["usernames"]
+        newFollowerData = json_data.getJsonData(values.NEW_JSON_FILE)["content"][1]["usernames"]
 
-    for oldUsername in oldFollowerData:
-        hasUnfollowed = True
         for username in newFollowerData:
-            if username == oldUsername:
-                hasUnfollowed = False
-        if hasUnfollowed:
-            unfollowedList.append(oldUsername)
+            isOldFollower = False
+
+            for oldUsername in oldFollowerData:
+
+                #Checking if the username is in both data lists
+                if oldUsername == username:
+                    isOldFollower = True
+            if not isOldFollower:
+                followedList.append(username)
+
+        for oldUsername in oldFollowerData:
+            hasUnfollowed = True
+
+            for username in newFollowerData:
+                if username == oldUsername:
+                    hasUnfollowed = False
+            if hasUnfollowed:
+                unfollowedList.append(oldUsername)
     
+    except Exception:
+        print(values.EXCEPTION_DEFAULT)
+        
     return [followedList, unfollowedList]
 
 

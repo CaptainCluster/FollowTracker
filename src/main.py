@@ -2,9 +2,11 @@ import modules.configuration as configuration
 import modules.scraper as scraper
 import modules.analyze as analyze
 import modules.write_excel as write_excel
+import sys
+import os
+sys.path.insert(1, os.path.join(sys.path[0], '..'))
 from variables.config import Config
 from variables.values import Values
-import os
 
 def main():
     """
@@ -55,7 +57,7 @@ def main():
                 else:
                     print(values.NOTIFY_IMPROPER_INPUT)
     except Exception:
-        print(values.EXCEPTION_DEFAULT + Exception)
+        print(values.EXCEPTION_DEFAULT)
 
 if __name__ == "__main__":
     main()

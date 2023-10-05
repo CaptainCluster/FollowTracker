@@ -1,6 +1,9 @@
 class Values:
     def __init__(self):
-        self.EXCEPTION_DEFAULT = "Encountered the following error: "
+        """A class consisting of multiple defined values in a way
+        that allows them to be maintained easily
+        """
+        self.EXCEPTION_DEFAULT = "Encountered an error."
 
         self.LOOP_LOWER_RANGE = 1
         self.LOOP_HIGHER_RANGE = 100
