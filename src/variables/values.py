@@ -11,6 +11,8 @@ class Values:
         self.NOTIFY_SCRAPING_SUCCESSFUL = "Data has been successfully scraped."
 
         ## main.py ##
+        self.USER_YES_INPUT = "Y"
+        self.USER_NO_INPUT = "n"
         self.NOTIFY_ENDING_PROGRAM = "Ending the program!"
         self.NOTIFY_IMPROPER_INPUT = "Give a proper input!"
         self.REQUEST_SCRAPE = "Do you want to scrape the follower data?: Y = yes, n = no: "
@@ -29,6 +31,7 @@ class Values:
         self.ARCHIVE_DIRECTORY = "src/followerData/archive/"
 
         self.FOLLOWERDATA_FILE_NAME = "src/followerdata/followerdata.json"
+        self.OLD_FOLLOWERDATA_FILE_NAME = "src/followerdata/oldfollowerdata.json"
 
         self.EXCEPTION_ARCHIVE_NULL = "No suitable archive file name found."
         self.ARCHIVE_SUCCESSFUL = "The data has been archived successfully to " # + file name

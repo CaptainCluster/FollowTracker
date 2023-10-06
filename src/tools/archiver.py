@@ -25,7 +25,7 @@ def archiveFollowerData():
     archiveFileName = getFileName(values)
 
     if(archiveFileName != None):
-        shutil.copy(values.FOLLOWERDATA_FILE_NAME, archiveFileName)
+        shutil.copy(values.OLD_FOLLOWERDATA_FILE_NAME, archiveFileName)
         print(values.ARCHIVE_SUCCESSFUL + archiveFileName + ".")
     else:
         print(values.EXCEPTION_ARCHIVE_NULL)

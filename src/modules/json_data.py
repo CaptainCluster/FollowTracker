@@ -20,3 +20,16 @@ def getJsonData(jsonDataFileName):
     except Exception:
         print(values.EXCEPTION_DEFAULT)
     return jsonContent
+
+
+def handleOldData():
+    """Moving the data from followerdata.json to oldfollowerdata.json
+    to stop it from being overwritten, and to make comparisons
+    """
+    values = Values()
+    jsonFile = open("src/followerdata/oldfollowerdata.json", "w")
+    #Making sure oldfollowerdata.json exists.
+    
+    dataToTranfer = getJsonData("src/followerdata/followerdata.json")
+    json.dump(dataToTranfer, jsonFile)
+

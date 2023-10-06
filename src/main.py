@@ -1,12 +1,15 @@
 import modules.configuration as configuration
 import modules.scraper as scraper
-import modules.analyze as analyze
 import modules.write_excel as write_excel
 import sys
 import os
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 from variables.config import Config
 from variables.values import Values
+sys.path.insert(1, os.path.join(sys.path[0], '..'))
+import modules.json_data as json_data
+sys.path.insert(1, os.path.join(sys.path[0], '..'))
+import tools.archiver as archiver
 
 def main():
     """
@@ -38,20 +41,26 @@ def main():
             usernameFile.close()
 
             #To prevent unnecessary traffic, user needs to verify that they want to scrape data
-            while(userInputScrape != "Y" and userInputScrape != "n"):
+            while(userInputScrape != values.USER_YES_INPUT and userInputScrape != values.USER_NO_INPUT):
                 userInputScrape = input(values.REQUEST_SCRAPE)
 
-                if userInputScrape == "Y":
+                if userInputScrape == values.USER_YES_INPUT:
 
                     #Scraping and analyzing
                     scraper.scraperProcess()    
-                    #analyze.compareFollowerLists()
 
                     #Writing the results to Excel, if it's enabled
                     if config.writingToExcel:
                         write_excel.writeFollowerData()
+                    
+                    #Moving the older data from followerdata.json to oldfollowerdata.json
+                    json_data.handleOldData()
+
+                    #If automatic archival is enabled, the older data will be archived
+                    if config.automaticArchival:
+                        archiver.archiveFollowerData()
                     break
-                elif userInputScrape == "n":
+                elif userInputScrape == values.USER_NO_INPUT:
                     print(values.NOTIFY_ENDING_PROGRAM)
                     break
                 else:

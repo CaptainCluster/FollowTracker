@@ -75,7 +75,7 @@ def excelWritingProcess(values, followerData):
             workSheet.cell(row=i, column = 3).value = gitHubUserLink
             if linkLongestLength < len(gitHubUserLink):
                 linkLongestLength = len(gitHubUserLink)
-            
+        
         widthList.append(longestLength)
         widthList.append(linkLongestLength)
 
