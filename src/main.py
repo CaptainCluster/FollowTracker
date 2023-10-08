@@ -45,6 +45,7 @@ def main():
                 userInputScrape = input(values.REQUEST_SCRAPE)
 
                 if userInputScrape == values.USER_YES_INPUT:
+                    print(values.NOTIFY_SCRAPE_START)
 
                     #Scraping and analyzing
                     scraper.scraperProcess()    

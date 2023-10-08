@@ -20,10 +20,13 @@ def excelWriteDefaults(workSheet):
     workSheet.cell(row=1, column=1).value = "Usernames" 
     workSheet.cell(row=1, column=2).value = "Names"
     workSheet.cell(row=1, column=3).value = "Links"
-    workSheet.cell(row=1, column=4).value = "Total Followers"
-    workSheet.cell(row=4, column=4).value = "Total Followed"
-    workSheet.cell(row=7, column=4).value = "Total Unfollowed"
-    workSheet.cell(row=10, column=4).value = "Net Change"
+    workSheet.cell(row=1, column=6).value = "Total Followers"
+    workSheet.cell(row=4, column=6).value = "Total Followed"
+    workSheet.cell(row=7, column=6).value = "Total Unfollowed"
+    workSheet.cell(row=10, column=6).value = "Net Change"
+
+    workSheet.cell(row=1, column=4).value = "New Followers"
+    workSheet.cell(row=1, column=5).value = "New Unfollowers"
 
 
 def excelChangeColumnWidth(workSheet, widthList):
@@ -51,7 +54,6 @@ def excelWritingProcess(values, followerData):
         changedFollowershipList = analyze.compareFollowerLists()
         followedList = changedFollowershipList[0]
         unfollowedList = changedFollowershipList[1]
-
 
         #Setting up the workbook and a worksheet
         wb = Workbook()
@@ -90,24 +92,42 @@ def excelWritingProcess(values, followerData):
                 longestLength = len(value)
         widthList.append(longestLength)
 
-        workSheet.cell(row=2, column=4).value = len(followerUsernames)
-        workSheet.cell(row=5, column=4).value = len(followedList)
-        workSheet.cell(row=8, column=4).value = len(unfollowedList)
-        workSheet.cell(row=11, column=4).value = (len(followedList)-len(unfollowedList))
+        writeListToExcel(workSheet, values, followedList, 4)
+        writeListToExcel(workSheet, values, unfollowedList, 5)
+
+        workSheet.cell(row=2, column=6).value = len(followerUsernames)
+        workSheet.cell(row=5, column=6).value = len(followedList)
+        workSheet.cell(row=8, column=6).value = len(unfollowedList)
+        workSheet.cell(row=11, column=6).value = (len(followedList)-len(unfollowedList))
         
         excelChangeColumnWidth(workSheet, widthList)
 
         wb.save(values.EXCEL_FILE)    
-    except Exception:
-        print(values.EXCEPTION_DEFAULT + Exception)
+    except Exception as exception:
+        print(values.EXCEPTION_DEFAULT + str(exception))
     
 
-#Main function for writing the data into an Excel file
+def writeListToExcel(workSheet, values, dataList, writeColumn):
+    """Writing a list, using a for-loop, to an Excel file
+
+    Args:
+        work
+        dataList (list): All the data to be written
+        writeColumn (int): The column in the Excel file where the data is written
+    """
+
+    for i, value in enumerate(dataList, start=values.STARTING_ROW):
+        workSheet.cell(row=i, column=writeColumn).value = value
+        
+
 def writeFollowerData():
+    """The core function for writing the data into an Excel file
+    """
     values = Values()
     followerData = json_data.getJsonData(values.FOLLOWERDATA_FILE_NAME)
     excelWritingProcess(values, followerData)
     print(values.NOTIFY_WRITING_SUCCESSFUL)
+
 
 if __name__ == "__main__":
     writeFollowerData()
