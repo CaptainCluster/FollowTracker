@@ -13,16 +13,11 @@ and written into an **Excel** file (.xlsx).
 **The program will need multiple different libraries in order to work! Make sure you have installed all
 the dependencies before using this program!**
 
-💻 For scraping data:
+⬇️ To quickly install the **dependencies**, run this command:
 
-```pip install beautifulsoup4```
-```pip install requests```
+```pip install -r requirements.txt```
 
-✍️ For writing data into an Excel file:
-
-```pip install openpyxl```
-
-After these have been installed, you should be good to go. 👍
+After the dependencies have been installed, you should be good to go. 👍
 
 📣Notable "issues"
 ---
