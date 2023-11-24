@@ -48,6 +48,8 @@ class Values:
         self.USERNAMES_DEFAULT_WIDTH = len("usernames")
         self.NAMES_DEFAULT_WIDTH = len("names")
 
+        self.EXCEL_UNDEFINED_VALUE = "!UNDEFINED!"
+
         self.NOTIFY_WRITING_SUCCESSFUL = "The data has been successfully written into an Excel file."
         
         

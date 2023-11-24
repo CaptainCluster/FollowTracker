@@ -1,11 +1,10 @@
 from bs4 import BeautifulSoup
 import requests
 import json
-
 import os 
 import sys
-sys.path.insert(1, os.path.join(sys.path[0], '..'))
 
+sys.path.insert(1, os.path.join(sys.path[0], '..'))
 from variables.values import Values
 
 
@@ -70,8 +69,11 @@ def writeToJson(gitHubFollowerData):
     Args:
         gitHubData (list): The follower data in a list
     """
+
+    #GitHub usernames and names go to these lists
     jsonListName = []
     jsonListUsername = []
+
     jsonFile = open("src/followerdata/followerdata.json", "w")
 
     #Adding the data into two lists
