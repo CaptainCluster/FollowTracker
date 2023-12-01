@@ -11,11 +11,13 @@ sys.path.insert(1, os.path.join(sys.path[0], '..'))
 from variables.values import Values
 
 
-def compareFollowerLists():
+def compareFollowerLists() -> list:
     """ Finding out who has followed and who has unfollowed
 
     Returns:
-        list: A list consisting of two lists: followed & unfollowed
+        [followedList, unFollowedList] (list): A list consisting of two lists: 
+            1. A list that contains the new followers
+            2. A list that contains the ones that have unfollowed
     """
     try:
         values = Values()

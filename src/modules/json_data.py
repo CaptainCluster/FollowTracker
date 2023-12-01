@@ -5,13 +5,13 @@ sys.path.insert(1, os.path.join(sys.path[0], '..'))
 from variables.values import Values
 
 
-def getJsonData(jsonDataFileName):
+def getJsonData(jsonDataFileName: str) -> dict:
     """ Fetching data from a selected JSON file
 
     Args:
         jsonDataFileName (JSON): the JSON file where the data is
     Returns:
-        dict: The JSON content from the file
+        jsonContent (dict): The JSON content from the file
     """
     values = Values()
     try:
@@ -22,7 +22,7 @@ def getJsonData(jsonDataFileName):
     return jsonContent
 
 
-def handleOldData():
+def handleOldData() -> None:
     """Moving the data from followerdata.json to oldfollowerdata.json
     to stop it from being overwritten, and to make comparisons
     """

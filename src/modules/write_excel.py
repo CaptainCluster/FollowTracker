@@ -32,9 +32,8 @@ def excelWriteDefaults(workSheet):
 
 
 def excelChangeColumnWidth(workSheet, widthList) -> None:
-    """
-    Adjusting the lengths of the columns based on the longest data string
-    """
+    """Adjusting the lengths of the columns based on the longest data string"""
+    
     columnList = ["A", "B", "C", "D"]   #To identify the columns
     for iteration in range(0, (len(columnList)-1)):
         workSheet.column_dimensions[columnList[iteration]].width = widthList[iteration] + 2

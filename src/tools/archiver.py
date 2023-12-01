@@ -7,8 +7,14 @@ import shutil  #Copying from one JSON file to another
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 from variables.values import Values
 
-#Fetching the name of an unused file name with the smallest possible integer
-def getFileName(values):
+def getFileName(values) -> None:
+    """Fetching the name of an unused "archive" file name with the smallest possible integer at the end
+
+    Args:
+        values (Values): a class with pre-defined calues
+
+    """
+    
     try:
         #Looking for a fitting file name for the contents to be archived
         for integer in range(values.LOOP_LOWER_RANGE, values.LOOP_HIGHER_RANGE):  
@@ -17,10 +23,11 @@ def getFileName(values):
             #Writing contents to a file with an unused name
             if not(os.path.exists(archiveFileName)):
                 return archiveFileName
-    except Exception:
-        print("Encountered the following error: " + Exception)
+            
+    except Exception as exception:
+        print("Encountered the following error: " + str(exception))
 
-def archiveFollowerData():
+def archiveFollowerData() -> None:
     values = Values()
     archiveFileName = getFileName(values)
 
