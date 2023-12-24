@@ -20,6 +20,7 @@ class Values:
 
 
         ### Exceptions ###
+        self.EXCEPTION_NO_URL = "A GitHub username has not been selected."
         self.EXCEPTION_DEFAULT = "An error has occurred."
         self.EXCEPTION_ARCHIVE_NULL = "No suitable archive file name found."
         ##################
@@ -64,10 +65,10 @@ class Values:
         ############################
 
 
-        ### Misc ###
+        ########### Misc ###########
         self.REQUEST_SCRAPE = "Do you want to scrape the follower data?: Y = yes, n = no: "
         self.URL_START_GITHUB = "https://github.com/"
-        ############
+        ############################
     
 
 

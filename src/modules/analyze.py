@@ -46,8 +46,9 @@ def compareFollowerLists() -> list:
             hasUnfollowed = True
 
             for username in newFollowerData:
-                if username == oldUsername:
+                if username == oldUsername:     #A match ==> the user is still a follower
                     hasUnfollowed = False
+
             if hasUnfollowed:
                 unfollowedList.append(oldUsername)
 

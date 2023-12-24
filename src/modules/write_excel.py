@@ -65,12 +65,10 @@ def excelWritingProcess(values, followerData) -> None:
         followerData(dict): The data that will be written
     """
     try:
-        #Dividing the data into usernames and names
-        followerUsernames = followerData["content"][1]["usernames"]
+        followerUsernames = followerData["content"][1]["usernames"] #Dividing the data into usernames and names
         followerNames = followerData["content"][0]["names"]
 
-        #Getting the data for fresh followers and those who unfollowed
-        changedFollowershipList = analyze.compareFollowerLists()
+        changedFollowershipList = analyze.compareFollowerLists() #Getting the data for fresh followers and those who unfollowed
         followedList, unfollowedList = changedFollowershipList 
 
 

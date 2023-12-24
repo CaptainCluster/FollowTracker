@@ -17,12 +17,11 @@ def main() -> None:
     #Making sure username.txt exists, in order to get the url to scrape data
     values = Values()
 
-  #  try:
-    if not os.path.exists(values.FILE_USERNAME):
-        configuration.askProfileName()
+    try:
+        if not os.path.exists(values.FILE_USERNAME):
+            configuration.askProfileName()
 
-    #If the file exists, we will just make sure its content is valid.
-    else:
+        #If the file exists, we will just make sure its content is valid.
         config = Config()
         userInputScrape = ""
         urLDefined = False
@@ -65,8 +64,8 @@ def main() -> None:
                 break
             else:
                 print(values.NOTIFY_IMPROPER_INPUT)
- #   except Exception:
-   #     print(values.EXCEPTION_DEFAULT)
+    except Exception as exeption:
+        print(values.EXCEPTION_DEFAULT + print(Exception))
 
 if __name__ == "__main__":
     main()

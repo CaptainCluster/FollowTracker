@@ -9,6 +9,8 @@ def askProfileName() -> None:
     module is run to define the necessities.
     """
     values = Values()
+
+    print(values.EXCEPTION_NO_URL)  #Notifying the user of no url
     gitHubUsername = input(values.ASK_INPUT_USERNAME)
     url = values.URL_START_GITHUB + gitHubUsername #https://github.com/[username]
     
