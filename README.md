@@ -1,5 +1,4 @@
 # FollowTracker
-*Saves the usernames and names of the GitHub followers that follow a selected GitHub profile URL.*
 
 📰Basics
 ---
