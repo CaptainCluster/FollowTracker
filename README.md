@@ -2,10 +2,11 @@
 
 📰Basics
 ---
-**FollowTracker** stores a GitHub url in **usernames.txt** file and then will read the line, stored in it, every 
-time the this program is executed. **BeautifulSoup** and **Requests** are used to scrape the data. After 
-the data has been successfully scraped, it will be saved into a **JSON** file, from where it can be retrieved
-and written into an **Excel** file (.xlsx).
+**FollowTracker** stores a GitHub url in **usernames.txt** file, and will then use that stored url to scrape
+the follower data of that user. After the data has been successfully scraped, it will be saved into a **JSON** 
+file, from where it can be retrieved and written into an **Excel** file (.xlsx). As of 9th of February 2024, 
+the user will interact with the program via a **GUI** created with Tkinter, a more user-friendly solution than
+the **terminal**.
 
 📚Dependencies
 ---
