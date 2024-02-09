@@ -1,3 +1,9 @@
+#------------------------------------------------------#
+# Made by CaptainCluster                               #
+# https://github.com/captaincluster                    #
+#                                                      #
+# All the scraping is done here.                       #
+#------------------------------------------------------#
 from bs4 import BeautifulSoup
 import requests
 import json
@@ -7,18 +13,18 @@ import sys
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 from variables.values import Values
 
+VALUES_INSTANCE = Values()
 
-def getUrl(values) -> str:
+def getUrl() -> str:
     """Retrieving the data from username.txt file
 
     Returns:
         string: The url in the .txt file
     """
-    userNameFile = open(values.FILE_USERNAME, "r", encoding="utf-8")
+    userNameFile = open(VALUES_INSTANCE.FILE_USERNAME, "r", encoding="utf-8")
     gitHubUrl = userNameFile.readline() 
-    gitHubFollowersUrl = gitHubUrl + "?tab=followers" #https://github.com/[the given username]?tab=followers
+    gitHubFollowersUrl = gitHubUrl + "?tab=followers"
     return gitHubFollowersUrl
-
 
 def appendDataToList(gitHubData: list) -> list:
     """Putting the scraped data into a list (in .text format)
@@ -71,10 +77,8 @@ def writeToJson(gitHubFollowerData: list) -> None:
     Args:
         gitHubData (list): The follower data in a list
     """
-
     #GitHub usernames and names go to these lists
     jsonListName, jsonListUsername = [], []
-
     jsonFile = open("src/followerdata/followerdata.json", "w")
 
     #Adding the data into two lists
@@ -88,10 +92,8 @@ def writeToJson(gitHubFollowerData: list) -> None:
 
 
 def scraperProcess() -> None:
-    """The main scraping process
-    """
-    values = Values()
-    gitHubUrl = getUrl(values)
+    """The main scraping process"""
+    gitHubUrl = getUrl()
     gitHubData = scrapeFollowers(gitHubUrl)
     writeToJson(gitHubData)
-    print(values.NOTIFY_SCRAPING_SUCCESSFUL)
+    print(VALUES_INSTANCE.NOTIFY_SCRAPING_SUCCESSFUL)

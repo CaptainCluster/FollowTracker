@@ -1,16 +1,21 @@
-from openpyxl import Workbook  #Writing the data to an Excel file
-import os                      #Finding available file names
-import sys                     #A precise import for Values class
+#------------------------------------------------------#
+# Made by CaptainCluster                               #
+# https://github.com/captaincluster                    #
+#                                                      #
+# Writing the follower data into an Excel file.        #
+#------------------------------------------------------#
+from openpyxl import Workbook 
+import os                     
+import sys                     
 
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 import modules.json_data as json_data
 import modules.analyze as analyze
-
-sys.path.insert(1, os.path.join(sys.path[0], '..'))
 from variables.values import Values
 
+VALUES_INSTANCE = Values()
 
-def excelWriteDefaults(workSheet):
+def excelWriteDefaults(workSheet) -> None:
     """
     Adding the default components in the Excel file that won't be changed
 
@@ -30,7 +35,6 @@ def excelWriteDefaults(workSheet):
     workSheet.cell(row=1, column=4).value   = "New Followers"
     workSheet.cell(row=1, column=5).value   = "New Unfollowers"
 
-
 def excelChangeColumnWidth(workSheet, widthList) -> None:
     """Adjusting the lengths of the columns based on the longest data string"""
     
@@ -38,12 +42,8 @@ def excelChangeColumnWidth(workSheet, widthList) -> None:
     for iteration in range(0, (len(columnList)-1)):
         workSheet.column_dimensions[columnList[iteration]].width = widthList[iteration] + 2
         
-
-def setUpExcel(values) -> Workbook:
+def setUpExcel() -> Workbook:
     """ Setting up the workbook and the worksheet
-
-    Args:
-        values (Values): A class full of pre-defined values
 
     Returns:
         wb: the Excel workbook
@@ -51,40 +51,32 @@ def setUpExcel(values) -> Workbook:
     """
     wb = Workbook()
     workSheet = wb.worksheets[0]
-    workSheet.title = values.EXCEL_WORKSHEET_TITLE
+    workSheet.title = VALUES_INSTANCE.EXCEL_WORKSHEET_TITLE
 
     return wb, workSheet
 
-
-def excelWritingProcess(values, followerData) -> None:
+def excelWritingProcess(followerData) -> None:
     """
     Writing the data into the Excel file
 
     Args:
-        values (Values): A class full of defined values
         followerData(dict): The data that will be written
     """
     try:
         followerUsernames = followerData["content"][1]["usernames"] #Dividing the data into usernames and names
         followerNames = followerData["content"][0]["names"]
-
+        widthList = []
         changedFollowershipList = analyze.compareFollowerLists() #Getting the data for fresh followers and those who unfollowed
         followedList, unfollowedList = changedFollowershipList 
 
+        wb, workSheet = setUpExcel()        #Setting up the workbook and a worksheet
+        excelWriteDefaults(workSheet)       #Adding the default attributes to the worksheet
 
-        #Setting up the workbook and a worksheet
-        wb, workSheet = setUpExcel(values)
-
-        #Adding the default attributes to the worksheet
-        excelWriteDefaults(workSheet)
-
-        widthList = []
-
-        widthList.append(writeListToExcel(workSheet, values, followerUsernames, values.USERNAME_COLUMN, None))
-        widthList.append(writeListToExcel(workSheet, values, followerNames, values.NAME_COLUMN, None))
-        widthList.append(writeListToExcel(workSheet, values, followerUsernames, 3, values.URL_START_GITHUB))
-        widthList.append(writeListToExcel(workSheet, values, followedList, 4, None))
-        widthList.append(writeListToExcel(workSheet, values, unfollowedList, 5, None))
+        widthList.append(writeListToExcel(workSheet, followerUsernames, VALUES_INSTANCE.USERNAME_COLUMN, None))
+        widthList.append(writeListToExcel(workSheet, followerNames, VALUES_INSTANCE.NAME_COLUMN, None))
+        widthList.append(writeListToExcel(workSheet, followerUsernames, 3, VALUES_INSTANCE.URL_START_GITHUB))
+        widthList.append(writeListToExcel(workSheet, followedList, 4, None))
+        widthList.append(writeListToExcel(workSheet, unfollowedList, 5, None))
 
         workSheet.cell(row=2, column=6).value = len(followerUsernames)
         workSheet.cell(row=5, column=6).value = len(followedList)
@@ -93,17 +85,15 @@ def excelWritingProcess(values, followerData) -> None:
 
         excelChangeColumnWidth(workSheet, widthList)
 
-        wb.save(values.EXCEL_FILE)    
+        wb.save(VALUES_INSTANCE.EXCEL_FILE)    
     except Exception as exception:
-        print(values.EXCEPTION_DEFAULT + str(exception))
+        print(VALUES_INSTANCE.EXCEPTION_DEFAULT + str(exception))
     
-
-def writeListToExcel(workSheet, values, dataList, writeColumn, dataString) -> int:
+def writeListToExcel(workSheet, dataList, writeColumn, dataString) -> int:
     """Writing a list, using a for-loop, to an Excel file
 
     Args:
         workSheet (openpyxl): The worksheet where the changes are appended
-        values (Values): A class full of defined values
         dataList (list): All the data to be written
         writeColumn (int): The column in the Excel file where the data is written
         dataString (string/None): A potential string in front of the given data
@@ -111,13 +101,13 @@ def writeListToExcel(workSheet, values, dataList, writeColumn, dataString) -> in
     Returns:
         longestLength (int): Integer for determining column width
     """
-    longestLength = values.USERNAMES_DEFAULT_WIDTH
+    longestLength = VALUES_INSTANCE.USERNAMES_DEFAULT_WIDTH
     
-    for i, value in enumerate(dataList, start=values.STARTING_ROW):
+    for i, value in enumerate(dataList, start=VALUES_INSTANCE.STARTING_ROW):
 
         #Handling undefined values
         if value == "":
-                value = values.EXCEL_UNDEFINED_VALUE
+                value = VALUES_INSTANCE.EXCEL_UNDEFINED_VALUE
         
         #A potential string in front of the written data
         if dataString:
@@ -130,15 +120,13 @@ def writeListToExcel(workSheet, values, dataList, writeColumn, dataString) -> in
         workSheet.cell(row=i, column=writeColumn).value = value
     
     return longestLength
-        
 
 def writeFollowerData() -> None:
-    """The core function for writing the data into an Excel file
-    """
-    values = Values()
-    followerData = json_data.getJsonData(values.FOLLOWERDATA_FILE_NAME)
-    excelWritingProcess(values, followerData)
-    print(values.NOTIFY_WRITING_SUCCESSFUL)
+    """The core function for writing the data into an Excel file"""
+    followerData = json_data.getJsonData(VALUES_INSTANCE.FOLLOWERDATA_FILE_NAME)
+    excelWritingProcess(followerData)
+    json_data.handleOldData()
+    print(VALUES_INSTANCE.NOTIFY_WRITING_SUCCESSFUL)
 
 
 if __name__ == "__main__":
