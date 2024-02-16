@@ -12,6 +12,9 @@ from variables.values import Values
 
 VALUES_INSTANCE = Values()
 
+
+
+
 def askProfileName() -> None:       #Legacy, to be deleted
     """If no GitHub user url is identified or username.txt doesn't exist, this
     module is run to create the necessities.

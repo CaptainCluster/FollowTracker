@@ -2,17 +2,10 @@ import sys
 import os
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 
-import tkinter          as tk
 from variables.values   import Values
-from gui.gui            import GUI
+from gui.gui            import setUpGUI
 
 VALUES_INSTANCE = Values()
-
-def setUpGUI() -> None:
-    """Graphical User Interface, allowing the user to interact with the program"""
-    root = tk.Tk()
-    my_gui = GUI(root)
-    root.mainloop()
 
 def main() -> None:
     """The core function of the program"""

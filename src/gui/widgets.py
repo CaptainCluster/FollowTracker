@@ -64,6 +64,8 @@ class Widgets:
         except Exception as exception:
             self.createNotification(VALUES_INSTANCE.EXCEPTION_DEFAULT + str(exception))
 
+#---------------- Functionalities behind the widgets ----------------#
+
     def scrapeContent(self) -> None:
         try:
             Scraper.scraperProcess()

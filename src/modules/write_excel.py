@@ -9,9 +9,9 @@ import os
 import sys                     
 
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
-import modules.json_data as json_data
-import modules.analyze as analyze
-from variables.values import Values
+import modules.json_data    as json_data
+import modules.analyze      as analyze
+from variables.values       import Values
 
 VALUES_INSTANCE = Values()
 
