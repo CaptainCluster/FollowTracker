@@ -25,11 +25,6 @@ the following command:
 
 After the dependencies have been installed, you should be good to go. 👍
 
-📣Notable "issues"
----
-* Some GitHub users have not defined a **Name** for their account. This is taken into account and handled as
-  an exception. There's a placeholder created for these instances when writing the Excel file.
-
 🚯Before you scrape
 ---
 This program only scrapes data that has been, willingly, made **public** by GitHub users. It is **not** built in
