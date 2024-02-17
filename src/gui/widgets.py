@@ -53,13 +53,13 @@ class Widgets:
             githubUsername = self.usernameEntry.get()
 
             if(githubUsername == ""):
-                self.createNotification("You need to insert your GitHub username in order to submit it.")
+                self.createNotification(VALUES_INSTANCE.EXCEPTION_EMPTY_SUBMISSION)
                 return
 
             githubUrl = "https://github.com/" + githubUsername
             writeUsernameToFile(githubUrl)
             self.usernameEntry.delete(0, "end")
-            self.createNotification("GitHub username submitted successfully.")
+            self.createNotification(VALUES_INSTANCE.NOTIFY_SUBMIT_USERNAME_SUCCESSFUL)
 
         except Exception as exception:
             self.createNotification(VALUES_INSTANCE.EXCEPTION_DEFAULT + str(exception))
@@ -73,7 +73,7 @@ class Widgets:
                 WriteExcel.writeFollowerData()
             if SETTINGS_INSTANCE.automaticArchival:
                 Archiver.archiveFollowerData()
-            self.createNotification("Scraping process completed successfully!")
+            self.createNotification(VALUES_INSTANCE.NOTIFY_SCRAPING_SUCCESSFUL)
 
         except IOError:
             self.createNotification(VALUES_INSTANCE.EXCEPTION_USERNAME_FILE_NOT_FOUND)

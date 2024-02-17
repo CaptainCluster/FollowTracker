@@ -15,11 +15,13 @@ class Values:
         self.LOOP_HIGHER_RANGE: int = 100
 
          #-------- Notifications --------#
-        self.NOTIFY_SCRAPE_START        = "Scraping data..."
-        self.NOTIFY_ENDING_PROGRAM      = "Ending the program!"
-        self.NOTIFY_IMPROPER_INPUT      = "Give a proper input!"
-        self.NOTIFY_SCRAPING_SUCCESSFUL = "Data has been successfully scraped."
-        self.NOTIFY_WRITING_SUCCESSFUL  = "The data has been successfully written into an Excel file."
+        self.NOTIFY_SCRAPE_START                = "Scraping data..."
+        self.NOTIFY_ENDING_PROGRAM              = "Ending the program!"
+        self.NOTIFY_IMPROPER_INPUT              = "Give a proper input!"
+        self.NOTIFY_SCRAPING_SUCCESSFUL         = "Data has been successfully scraped."
+        self.NOTIFY_WRITING_SUCCESSFUL          = "The data has been successfully written into an Excel file."
+        self.NOTIFY_SUBMIT_USERNAME_SUCCESSFUL  = "You need to insert your GitHub username in order to submit it."
+
 
         self.ARCHIVE_SUCCESSFUL         = "The data has been archived successfully to " # + file name
 
@@ -29,6 +31,7 @@ class Values:
         self.EXCEPTION_ARCHIVE_NULL             = "No suitable archive file name found."
         self.EXCEPTION_FILE_NOT_FOUND           = "Unable to find the file."
         self.EXCEPTION_USERNAME_FILE_NOT_FOUND  = "No username identified. Make sure you submit your GitHub username first."
+        self.EXCEPTION_EMPTY_SUBMISSION         = "You need to insert your GitHub username in order to submit it."
 
         #-------- Files & Directories --------#
         self.FILE_USERNAME = "src/username.txt"
@@ -44,6 +47,9 @@ class Values:
         self.OLD_FOLLOWERDATA_FILE_NAME = "src/followerdata/oldfollowerdata.json"
 
         self.FILE_USERNAME = "src/username.txt"    
+
+        #-------- Configurations --------#
+        self.NOTIFY_LISTING_CREATED_FILES = "The following required files have been created: "
 
         #-------- Excel Configurations --------#
         self.EXCEL_FILE             = "src/followerdata/excel/followerdata.xlsx"
