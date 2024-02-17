@@ -17,6 +17,12 @@ the dependencies before using this program!**
 
 ```pip install -r requirements.txt```
 
+On top of that, **tkinter** is used. If you use a Debian-based Linux distro, you can install it with
+the following command:
+
+
+```sudo apt install python3-tk```
+
 After the dependencies have been installed, you should be good to go. 👍
 
 📣Notable "issues"
