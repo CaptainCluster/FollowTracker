@@ -20,7 +20,7 @@ class Values:
         self.NOTIFY_IMPROPER_INPUT              = "Give a proper input!"
         self.NOTIFY_SCRAPING_SUCCESSFUL         = "Data has been successfully scraped."
         self.NOTIFY_WRITING_SUCCESSFUL          = "The data has been successfully written into an Excel file."
-        self.NOTIFY_SUBMIT_USERNAME_SUCCESSFUL  = "You need to insert your GitHub username in order to submit it."
+        self.NOTIFY_SUBMIT_USERNAME_SUCCESSFUL  = "GitHub username submitted successfully."
 
 
         self.ARCHIVE_SUCCESSFUL         = "The data has been archived successfully to " # + file name
@@ -61,8 +61,8 @@ class Values:
         self.NAME_COLUMN        = 2
         self.STARTING_ROW       = 2   #The first row for data insertion
 
-        self.USERNAMES_DEFAULT_WIDTH = len("usernames")
-        self.NAMES_DEFAULT_WIDTH = len("names")
+        self.USERNAMES_DEFAULT_WIDTH    = len("usernames")
+        self.NAMES_DEFAULT_WIDTH        = len("names")
 
         #-------- Misc --------#
         self.REQUEST_SCRAPE     = "Do you want to scrape the follower data?: Y = yes, n = no: "
@@ -70,7 +70,7 @@ class Values:
 
         #-------- GUI --------#
         self.GUI_TITLE          = "FollowTracker"
-        self.GUI_GEOMETRY       = "350x200"
+        self.GUI_GEOMETRY       = "375x225"
         self.GUI_LABEL_DEFAULT  = "Notifications Come Here"
 
 
