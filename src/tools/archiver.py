@@ -30,6 +30,7 @@ def getFileName() -> None:
             #Writing contents to a file with an unused name
             if not(os.path.exists(archiveFileName)):
                 return archiveFileName
+            
     except Exception as exception:
         print("Encountered the following error: " + str(exception))
 

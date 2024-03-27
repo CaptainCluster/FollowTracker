@@ -11,7 +11,8 @@ import os
 import sys
 
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
-from variables.values import Values
+
+from variables.values   import Values
 
 VALUES_INSTANCE = Values()
 
@@ -79,7 +80,6 @@ def writeToJson(gitHubFollowerData: list) -> None:
     """
     #GitHub usernames and names go to these lists
     jsonListName, jsonListUsername = [], []
-    jsonFile = open("src/followerdata/followerdata.json", "w")
 
     #Adding the data into two lists
     for dataType in gitHubFollowerData:
@@ -88,7 +88,9 @@ def writeToJson(gitHubFollowerData: list) -> None:
     
     #Formulating the content of the JSON file
     jsonContent = {"content": [{"names": jsonListName}, {"usernames": jsonListUsername}]}
-    json.dump(jsonContent, jsonFile)
+
+    with open(VALUES_INSTANCE.FOLLOWERDATA_FILE_NAME, "w") as jsonFile:
+        json.dump(jsonContent, jsonFile)
 
 
 def scraperProcess() -> None:

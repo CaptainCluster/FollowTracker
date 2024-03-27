@@ -125,7 +125,6 @@ def writeFollowerData() -> None:
     """The core function for writing the data into an Excel file"""
     followerData = json_data.getJsonData(VALUES_INSTANCE.FOLLOWERDATA_FILE_NAME)
     excelWritingProcess(followerData)
-    json_data.handleOldData()
     print(VALUES_INSTANCE.NOTIFY_WRITING_SUCCESSFUL)
 
 

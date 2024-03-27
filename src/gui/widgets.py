@@ -14,11 +14,13 @@ import sys
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 
 from modules.configuration  import writeUsernameToFile
+from modules.json_data      import handleOldData
 import modules.scraper      as Scraper
 import modules.write_excel  as WriteExcel
 from variables.values       import Values
 from variables.settings     import Settings
 import tools.archiver       as Archiver
+
 
 
 VALUES_INSTANCE = Values()
@@ -68,11 +70,27 @@ class Widgets:
 
     def scrapeContent(self) -> None:
         try:
+            dataLine = ""
+            firstScrape = False  #Assuming the JSON follower data is empty, until proven otherwise
+
+            with open(VALUES_INSTANCE.NEW_JSON_FILE, "r") as jsonFile: #Checking for data in the JSON file
+                dataLine = jsonFile.readline()
+
+            if len(dataLine) == 0:
+                firstScrape = True
+            
+            #Data preservation before scraping
+            if not firstScrape:
+                handleOldData()    
+
+            with open(VALUES_INSTANCE.OLD_FOLLOWERDATA_FILE_NAME, "r") as oldJsonFile:
+                if len(oldJsonFile.read()) > 0 and SETTINGS_INSTANCE.automaticArchival:  
+                    Archiver.archiveFollowerData()
+
             Scraper.scraperProcess()
             if SETTINGS_INSTANCE.writingToExcel:
                 WriteExcel.writeFollowerData()
-            if SETTINGS_INSTANCE.automaticArchival:
-                Archiver.archiveFollowerData()
+            
             self.createNotification(VALUES_INSTANCE.NOTIFY_SCRAPING_SUCCESSFUL)
 
         except IOError:

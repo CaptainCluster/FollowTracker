@@ -23,17 +23,17 @@ def getJsonData(jsonDataFileName: str) -> dict:
     try:
         with open(jsonDataFileName, "r") as jsonDataFile:
             jsonContent = json.load(jsonDataFile)
+            return jsonContent
     except FileNotFoundError as fnfError:
         print(VALUES_INSTANCE.EXCEPTION_FILE_NOT_FOUND + " " + str(fnfError))
     except Exception as exception:
         print(VALUES_INSTANCE.EXCEPTION_DEFAULT + " " + str(exception))
-    return jsonContent
 
 def handleOldData() -> None:
     """Moving the data from followerdata.json to oldfollowerdata.json
     to stop it from being overwritten, and to make comparisons
     """
     jsonFile = open("src/followerdata/oldfollowerdata.json", "w")
-    dataToTranfer = getJsonData("src/followerdata/followerdata.json")
-    json.dump(dataToTranfer, jsonFile)
+    dataToTransfer = getJsonData("src/followerdata/followerdata.json")
+    json.dump(dataToTransfer, jsonFile)
 
