@@ -1,12 +1,12 @@
 # ***FollowTracker***
 
-📰Basics
----
 **FollowTracker** stores a GitHub url in **usernames.txt** file, and will then use that stored url to scrape
 the follower data of that user. After the data has been successfully scraped, it will be saved into a **JSON** 
 file, from where it can be retrieved and written into an **Excel** file (.xlsx). As of 9th of February 2024, 
 the user will interact with the program via a **GUI** created with Tkinter, a more user-friendly solution than
 the **terminal**.
+
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 📚Dependencies
 ---
