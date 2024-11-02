@@ -12,7 +12,7 @@ from variables.values import Values
 
 VALUES_INSTANCE = Values()
 
-def getJsonData(jsonDataFileName: str) -> dict:
+def getJsonData(jsonDataFileName: str):
     """ Fetching data from a selected JSON file
 
     Args:
@@ -25,15 +25,15 @@ def getJsonData(jsonDataFileName: str) -> dict:
             jsonContent = json.load(jsonDataFile)
             return jsonContent
     except FileNotFoundError as fnfError:
-        print(VALUES_INSTANCE.EXCEPTION_FILE_NOT_FOUND + " " + str(fnfError))
+        print(f"{VALUES_INSTANCE.EXCEPTION_FILE_NOT_FOUND} {str(fnfError)}")
     except Exception as exception:
-        print(VALUES_INSTANCE.EXCEPTION_DEFAULT + " " + str(exception))
+        print(f"{VALUES_INSTANCE.EXCEPTION_DEFAULT} {str(exception)}")
 
 def handleOldData() -> None:
     """Moving the data from followerdata.json to oldfollowerdata.json
     to stop it from being overwritten, and to make comparisons
     """
-    jsonFile = open("src/followerdata/oldfollowerdata.json", "w")
-    dataToTransfer = getJsonData("src/followerdata/followerdata.json")
+    jsonFile = open("followerdata/oldfollowerdata.json", "w")
+    dataToTransfer = getJsonData("followerdata/followerdata.json")
     json.dump(dataToTransfer, jsonFile)
 

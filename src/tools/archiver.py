@@ -16,7 +16,7 @@ from variables.values import Values
 
 VALUES_INSTANCE = Values()
 
-def getFileName() -> None:
+def getFileName():
     """Fetching the name of an unused "archive" file name with the smallest possible integer at the end
 
     Args:
@@ -25,7 +25,7 @@ def getFileName() -> None:
     try:
         #Looking for a fitting file name for the contents to be archived
         for integer in range(VALUES_INSTANCE.LOOP_LOWER_RANGE, VALUES_INSTANCE.LOOP_HIGHER_RANGE):  
-            archiveFileName = VALUES_INSTANCE.ARCHIVE_DIRECTORY + VALUES_INSTANCE.ARCHIVE_FILE_TITLE + str(integer) + VALUES_INSTANCE.ARCHIVE_FILE_FORMAT
+            archiveFileName = f"{VALUES_INSTANCE.ARCHIVE_DIRECTORY}{VALUES_INSTANCE.ARCHIVE_FILE_TITLE}{str(integer)}{VALUES_INSTANCE.ARCHIVE_FILE_FORMAT}"
 
             #Writing contents to a file with an unused name
             if not(os.path.exists(archiveFileName)):
@@ -40,7 +40,7 @@ def archiveFollowerData() -> None:
     archiveFileName = getFileName() #Each archive file has a unique name
     if(archiveFileName != None):
         shutil.copy(VALUES_INSTANCE.OLD_FOLLOWERDATA_FILE_NAME, archiveFileName)
-        print(VALUES_INSTANCE.ARCHIVE_SUCCESSFUL + archiveFileName + ".")
+        print(f"{VALUES_INSTANCE.ARCHIVE_SUCCESSFUL}{archiveFileName}.")
     else:
         print(VALUES_INSTANCE.EXCEPTION_ARCHIVE_NULL)
 

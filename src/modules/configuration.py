@@ -56,7 +56,7 @@ def checkFileExistence() -> None:
             with open(VALUES_INSTANCE.OLD_JSON_FILE, "w", encoding="utf-8") as oldFollowerDataJsonFile:
                 createdFiles.append(VALUES_INSTANCE.OLD_JSON_FILE)
                 pass
-        
+        print(createdFiles) 
         #Printing to the terminal, only if files have been created
         if(len(createdFiles) > 0):
             print(VALUES_INSTANCE.NOTIFY_LISTING_CREATED_FILES)

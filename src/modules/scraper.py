@@ -24,7 +24,7 @@ def getUrl() -> str:
     """
     userNameFile = open(VALUES_INSTANCE.FILE_USERNAME, "r", encoding="utf-8")
     gitHubUrl = userNameFile.readline() 
-    gitHubFollowersUrl = gitHubUrl + "?tab=followers"
+    gitHubFollowersUrl = f"{gitHubUrl}?tab=followers"
     return gitHubFollowersUrl
 
 def appendDataToList(gitHubData: list) -> list:
