@@ -32,11 +32,9 @@ class Values:
         self.EXCEPTION_FILE_NOT_FOUND           = "Unable to find the file."
         self.EXCEPTION_USERNAME_FILE_NOT_FOUND  = "No username identified. Make sure you submit your GitHub username first."
         self.EXCEPTION_EMPTY_SUBMISSION         = "You need to insert your GitHub username in order to submit it."
-
+        self.EXCEPTION_SCRAPE_FAIL              = "Failed to retrieve followers: "
         #-------- Files & Directories --------#
 
-        self.NEW_JSON_FILE = "followerdata/followerdata.json"       #Fresh follower data
-        self.OLD_JSON_FILE = "followerdata/oldfollowerdata.json"    #Where the formerly fresh data is placed
 
         self.ARCHIVE_FILE_FORMAT    = ".json"
         self.ARCHIVE_FILE_TITLE     = "archive"
@@ -64,7 +62,6 @@ class Values:
 
         #-------- Misc --------#
         self.REQUEST_SCRAPE     = "Do you want to scrape the follower data?: Y = yes, n = no: "
-        self.URL_START_GITHUB   = "https://github.com/"
 
         #-------- GUI --------#
         self.GUI_TITLE          = "FollowTracker"
