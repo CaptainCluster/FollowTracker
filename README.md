@@ -10,6 +10,7 @@ the **terminal**.
 
 As of November, 2024, the project has had its most critical problems fixed and now the application is in a 
 finished state.
+
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 📚Dependencies
