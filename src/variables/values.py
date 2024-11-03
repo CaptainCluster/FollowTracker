@@ -34,25 +34,24 @@ class Values:
         self.EXCEPTION_EMPTY_SUBMISSION         = "You need to insert your GitHub username in order to submit it."
 
         #-------- Files & Directories --------#
-        self.FILE_USERNAME = "src/username.txt"
 
-        self.NEW_JSON_FILE = "src/followerdata/followerdata.json"       #Fresh follower data
-        self.OLD_JSON_FILE = "src/followerdata/oldfollowerdata.json"    #Where the formerly fresh data is placed
+        self.NEW_JSON_FILE = "followerdata/followerdata.json"       #Fresh follower data
+        self.OLD_JSON_FILE = "followerdata/oldfollowerdata.json"    #Where the formerly fresh data is placed
 
         self.ARCHIVE_FILE_FORMAT    = ".json"
         self.ARCHIVE_FILE_TITLE     = "archive"
         self.ARCHIVE_DIRECTORY      = "src/followerData/archive/"
 
-        self.FOLLOWERDATA_FILE_NAME     = "src/followerdata/followerdata.json"
-        self.OLD_FOLLOWERDATA_FILE_NAME = "src/followerdata/oldfollowerdata.json"
+        self.FOLLOWERDATA_FILE_NAME     = "followerdata/followerdata.json"
+        self.OLD_FOLLOWERDATA_FILE_NAME = "followerdata/oldfollowerdata.json"
 
-        self.FILE_USERNAME = "src/username.txt"    
+        self.FILE_USERNAME = "username.txt"    
 
         #-------- Configurations --------#
         self.NOTIFY_LISTING_CREATED_FILES = "The following required files have been created: "
 
         #-------- Excel Configurations --------#
-        self.EXCEL_FILE             = "src/followerdata/excel/followerdata.xlsx"
+        self.EXCEL_FILE             = "followerdata/excel/followerdata.xlsx"
         self.EXCEL_WORKSHEET_TITLE  = "FollowTracker"
 
         self.EXCEL_UNDEFINED_VALUE  = "!UNDEFINED!"  #If a GitHub user has no name, an exception will clarify that
@@ -72,7 +71,8 @@ class Values:
         self.GUI_TITLE          = "FollowTracker"
         self.GUI_GEOMETRY       = "375x225"
         self.GUI_LABEL_DEFAULT  = "Notifications Come Here"
-
+        
+        self.ASK_INPUT_USERNAME = "What is your username: "
 
         
 

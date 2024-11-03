@@ -33,9 +33,9 @@ def writeUsernameToFile(url) -> None:
         with open(VALUES_INSTANCE.FILE_USERNAME, "w", encoding="utf-8") as gitHubUsernameFile:
             gitHubUsernameFile.write(url)
     except FileNotFoundError as fnfError:
-        print(VALUES_INSTANCE.EXCEPTION_FILE_NOT_FOUND + " " + str(fnfError))
+        print(f"{VALUES_INSTANCE.EXCEPTION_FILE_NOT_FOUND} {str(fnfError)}")
     except Exception as exception:
-        print(VALUES_INSTANCE.EXCEPTION_DEFAULT + " " + str(exception))
+        print(f"{VALUES_INSTANCE.EXCEPTION_DEFAULT} {str(exception)}")
 
 def checkFileExistence() -> None:
     """Making sure that the necessary files exist"""
@@ -56,7 +56,6 @@ def checkFileExistence() -> None:
             with open(VALUES_INSTANCE.OLD_JSON_FILE, "w", encoding="utf-8") as oldFollowerDataJsonFile:
                 createdFiles.append(VALUES_INSTANCE.OLD_JSON_FILE)
                 pass
-        
         #Printing to the terminal, only if files have been created
         if(len(createdFiles) > 0):
             print(VALUES_INSTANCE.NOTIFY_LISTING_CREATED_FILES)
@@ -67,6 +66,3 @@ def checkFileExistence() -> None:
                 print(createdFile, end= ", ")
     except Exception as exception:
         print(VALUES_INSTANCE.EXCEPTION_DEFAULT + str(exception))
-
-
-

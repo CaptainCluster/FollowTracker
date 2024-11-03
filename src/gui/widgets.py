@@ -22,7 +22,6 @@ from variables.settings     import Settings
 import tools.archiver       as Archiver
 
 
-
 VALUES_INSTANCE = Values()
 SETTINGS_INSTANCE = Settings()
 
@@ -78,19 +77,16 @@ class Widgets:
 
             if len(dataLine) == 0:
                 firstScrape = True
-            
+          
             #Data preservation before scraping
             if not firstScrape:
-                handleOldData()    
-
+                handleOldData()
             with open(VALUES_INSTANCE.OLD_FOLLOWERDATA_FILE_NAME, "r") as oldJsonFile:
                 if len(oldJsonFile.read()) > 0 and SETTINGS_INSTANCE.automaticArchival:  
                     Archiver.archiveFollowerData()
-
             Scraper.scraperProcess()
             if SETTINGS_INSTANCE.writingToExcel:
                 WriteExcel.writeFollowerData()
-            
             self.createNotification(VALUES_INSTANCE.NOTIFY_SCRAPING_SUCCESSFUL)
 
         except IOError:
