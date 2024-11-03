@@ -16,17 +16,6 @@ from variables.values   import Values
 
 VALUES_INSTANCE = Values()
 
-def getUrl() -> str:
-    """Retrieving the data from username.txt file
-
-    Returns:
-        string: The url in the .txt file
-    """
-    userNameFile = open(VALUES_INSTANCE.FILE_USERNAME, "r", encoding="utf-8")
-    gitHubUrl = userNameFile.readline() 
-    gitHubFollowersUrl = f"{gitHubUrl}?tab=followers"
-    return gitHubFollowersUrl
-
 def appendDataToList(gitHubData: list) -> list:
     """Putting the scraped data into a list (in .text format)
 
@@ -42,7 +31,7 @@ def appendDataToList(gitHubData: list) -> list:
     return dataList
 
 
-def scrapeFollowers(gitHubFollowersUrl: str) -> list:
+def scrapeFollowers() -> list:
     """Scraping all the follower data from a GitHub user.
 
     Args:
@@ -51,19 +40,44 @@ def scrapeFollowers(gitHubFollowersUrl: str) -> list:
     Returns:
         list: GitHub followers in a list as dictionaries
     """
-    requestContent = requests.get(gitHubFollowersUrl)
-    soup = BeautifulSoup(requestContent.content, "html.parser")
 
-    gitHubUsernames = soup.find_all("span", class_="Link--secondary")
-    gitHubUsernamesList = appendDataToList(gitHubUsernames)
-
+    perPage = 100
+    page = 1
+    followerList = []
     gitHubFollowers = []
+    usernameFile = open(VALUES_INSTANCE.FILE_USERNAME, "r", encoding="utf-8")
+    username = usernameFile.readline()
+    usernameFile.close()
 
-    for i in range (len(gitHubUsernames)):
-        gitHubFollower = {
-            "username": gitHubUsernamesList[i]
+    while True:
+        gitHubUrl = f"https://api.github.com/users/{username}/followers?per_page={perPage}&page={page}"
+        print(gitHubUrl)
+        response = requests.get(gitHubUrl) 
+    
+        # Handling a failed scrape 
+        if not response.status_code == 200:
+            print(f"{VALUES_INSTANCE.EXCEPTION_SCRAPE_FAIL} {response.status_code}")
+            break
+
+        # A successful scrape 
+        followerData = response.json()
+        
+        # If the follower data is empty
+        if not followerData:
+            break
+
+        followerList.extend(followerData)
+        page += 1
+    
+    if len(followerList) == 0:
+        return gitHubFollowers
+
+    for follower in followerList:
+        gitHubFollowerEntry = {
+            "username": str(follower["login"]),
+            "url": follower["html_url"]
         }
-        gitHubFollowers.append(gitHubFollower)
+        gitHubFollowers.append(gitHubFollowerEntry)
 
     return gitHubFollowers
 
@@ -75,14 +89,15 @@ def writeToJson(gitHubFollowerData: list) -> None:
         gitHubData (list): The follower data in a list
     """
     #GitHub usernames and names go to these lists
-    jsonListName, jsonListUsername = [], []
+    jsonListUsername, jsonListUrl = [], []
 
     #Adding the data into two lists
     for dataType in gitHubFollowerData:
         jsonListUsername.append(dataType["username"])
+        jsonListUrl.append(dataType["url"])
     
     #Formulating the content of the JSON file
-    jsonContent = {"content": [{"usernames": jsonListUsername}]}
+    jsonContent = {"content": [{"usernames": jsonListUsername, "urls": jsonListUrl}]}
 
     with open(VALUES_INSTANCE.FOLLOWERDATA_FILE_NAME, "w") as jsonFile:
         json.dump(jsonContent, jsonFile)
@@ -90,7 +105,6 @@ def writeToJson(gitHubFollowerData: list) -> None:
 
 def scraperProcess() -> None:
     """The main scraping process"""
-    gitHubUrl = getUrl()
-    gitHubData = scrapeFollowers(gitHubUrl)
+    gitHubData = scrapeFollowers()
     writeToJson(gitHubData)
     print(VALUES_INSTANCE.NOTIFY_SCRAPING_SUCCESSFUL)

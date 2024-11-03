@@ -12,26 +12,25 @@ from variables.values import Values
 
 VALUES_INSTANCE = Values()
 
-def askProfileName() -> None:       #Legacy, to be deleted
+def askProfileName() -> None:
     """If no GitHub user url is identified or username.txt doesn't exist, this
     module is run to create the necessities.
     """
     try:
         print(VALUES_INSTANCE.EXCEPTION_NO_URL) #Notifying the user about an undefined url
         gitHubUsername = input(VALUES_INSTANCE.ASK_INPUT_USERNAME)
-        url = VALUES_INSTANCE.URL_START_GITHUB + gitHubUsername
-        writeUsernameToFile(url)  #Writing the url to a .txt file
+        writeUsernameToFile(gitHubUsername)  #Writing the url to a .txt file
     except Exception as exception:
-        print(VALUES_INSTANCE.EXCEPTION_DEFAULT + " " + str(exception))
+        print(f"{VALUES_INSTANCE.EXCEPTION_DEFAULT} {str(exception)}")
 
-def writeUsernameToFile(url) -> None:
+def writeUsernameToFile(username) -> None:
     """A simple function that handles the writing part of the .txt file url assignment
     Args:
         url (string): The url that will be in the .txt file
     """
     try:
         with open(VALUES_INSTANCE.FILE_USERNAME, "w", encoding="utf-8") as gitHubUsernameFile:
-            gitHubUsernameFile.write(url)
+            gitHubUsernameFile.write(username)
     except FileNotFoundError as fnfError:
         print(f"{VALUES_INSTANCE.EXCEPTION_FILE_NOT_FOUND} {str(fnfError)}")
     except Exception as exception:
@@ -48,13 +47,13 @@ def checkFileExistence() -> None:
                 pass
 
         #The same process with both of the core JSON files for storing scraped follower data
-        if not(os.path.exists(VALUES_INSTANCE.NEW_JSON_FILE)):
-            with open(VALUES_INSTANCE.NEW_JSON_FILE, "w", encoding="utf-8") as followerDataJsonFile:
-                createdFiles.append(VALUES_INSTANCE.NEW_JSON_FILE)
+        if not(os.path.exists(VALUES_INSTANCE.FOLLOWERDATA_FILE_NAME)):
+            with open(VALUES_INSTANCE.FOLLOWERDATA_FILE_NAME, "w", encoding="utf-8") as followerDataJsonFile:
+                createdFiles.append(VALUES_INSTANCE.FOLLOWERDATA_FILE_NAME)
                 pass
-        if not(os.path.exists(VALUES_INSTANCE.OLD_JSON_FILE)):
-            with open(VALUES_INSTANCE.OLD_JSON_FILE, "w", encoding="utf-8") as oldFollowerDataJsonFile:
-                createdFiles.append(VALUES_INSTANCE.OLD_JSON_FILE)
+        if not(os.path.exists(VALUES_INSTANCE.OLD_FOLLOWERDATA_FILE_NAME)):
+            with open(VALUES_INSTANCE.OLD_FOLLOWERDATA_FILE_NAME, "w", encoding="utf-8") as oldFollowerDataJsonFile:
+                createdFiles.append(VALUES_INSTANCE.OLD_FOLLOWERDATA_FILE_NAME)
                 pass
         #Printing to the terminal, only if files have been created
         if(len(createdFiles) > 0):

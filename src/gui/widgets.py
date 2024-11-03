@@ -57,8 +57,7 @@ class Widgets:
                 self.createNotification(VALUES_INSTANCE.EXCEPTION_EMPTY_SUBMISSION)
                 return
 
-            githubUrl = "https://github.com/" + githubUsername
-            writeUsernameToFile(githubUrl)
+            writeUsernameToFile(githubUsername)
             self.usernameEntry.delete(0, "end")
             self.createNotification(VALUES_INSTANCE.NOTIFY_SUBMIT_USERNAME_SUCCESSFUL)
 
@@ -72,7 +71,7 @@ class Widgets:
             dataLine = ""
             firstScrape = False  #Assuming the JSON follower data is empty, until proven otherwise
 
-            with open(VALUES_INSTANCE.NEW_JSON_FILE, "r") as jsonFile: #Checking for data in the JSON file
+            with open(VALUES_INSTANCE.FOLLOWERDATA_FILE_NAME, "r") as jsonFile: #Checking for data in the JSON file
                 dataLine = jsonFile.readline()
 
             if len(dataLine) == 0:

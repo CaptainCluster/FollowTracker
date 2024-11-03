@@ -24,8 +24,8 @@ def compareFollowerLists() -> list:
     try:
         unfollowedList, followedList = [], []
 
-        oldFollowerData = jsonData.getJsonData(VALUES_INSTANCE.OLD_JSON_FILE)["content"][0]["usernames"]
-        newFollowerData = jsonData.getJsonData(VALUES_INSTANCE.NEW_JSON_FILE)["content"][0]["usernames"]
+        oldFollowerData = jsonData.getJsonData(VALUES_INSTANCE.OLD_FOLLOWERDATA_FILE_NAME)["content"][0]["usernames"]
+        newFollowerData = jsonData.getJsonData(VALUES_INSTANCE.FOLLOWERDATA_FILE_NAME)["content"][0]["usernames"]
 
         #Finding the new followers
         for username in newFollowerData:

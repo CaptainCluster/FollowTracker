@@ -63,6 +63,7 @@ def excelWritingProcess(followerData) -> None:
     """
     try:
         followerUsernames = followerData["content"][0]["usernames"]
+        followerUrls = followerData["content"][0]["urls"]
         widthList = []
 
         changedFollowershipList = analyze.compareFollowerLists() #Getting the data for fresh followers and those who unfollowed
@@ -72,7 +73,7 @@ def excelWritingProcess(followerData) -> None:
         excelWriteDefaults(workSheet)       #Adding the default attributes to the worksheet
 
         widthList.append(writeListToExcel(workSheet, followerUsernames, VALUES_INSTANCE.USERNAME_COLUMN, None))
-        widthList.append(writeListToExcel(workSheet, followerUsernames, 2, VALUES_INSTANCE.URL_START_GITHUB))
+        widthList.append(writeListToExcel(workSheet, followerUrls, 2, None))
         widthList.append(writeListToExcel(workSheet, followedList, 3, None))
         widthList.append(writeListToExcel(workSheet, unfollowedList, 4, None))
 
