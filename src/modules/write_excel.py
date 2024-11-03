@@ -23,8 +23,7 @@ def excelWriteDefaults(workSheet) -> None:
         workSheet (openpyxl): The worksheet where the changes are appended
     """
     workSheet.cell(row=1, column=1).value   = "Usernames" 
-    workSheet.cell(row=1, column=2).value   = "Names"
-    workSheet.cell(row=1, column=3).value   = "Links"
+    workSheet.cell(row=1, column=2).value   = "Links"
 
     workSheet.cell(row=1, column=6).value   = "Total Followers"
     workSheet.cell(row=4, column=6).value   = "Total Followed"
@@ -63,9 +62,9 @@ def excelWritingProcess(followerData) -> None:
         followerData(dict): The data that will be written
     """
     try:
-        followerUsernames = followerData["content"][1]["usernames"] #Dividing the data into usernames and names
-        followerNames = followerData["content"][0]["names"]
+        followerUsernames = followerData["content"][0]["usernames"]
         widthList = []
+
         changedFollowershipList = analyze.compareFollowerLists() #Getting the data for fresh followers and those who unfollowed
         followedList, unfollowedList = changedFollowershipList 
 
@@ -73,10 +72,9 @@ def excelWritingProcess(followerData) -> None:
         excelWriteDefaults(workSheet)       #Adding the default attributes to the worksheet
 
         widthList.append(writeListToExcel(workSheet, followerUsernames, VALUES_INSTANCE.USERNAME_COLUMN, None))
-        widthList.append(writeListToExcel(workSheet, followerNames, VALUES_INSTANCE.NAME_COLUMN, None))
-        widthList.append(writeListToExcel(workSheet, followerUsernames, 3, VALUES_INSTANCE.URL_START_GITHUB))
-        widthList.append(writeListToExcel(workSheet, followedList, 4, None))
-        widthList.append(writeListToExcel(workSheet, unfollowedList, 5, None))
+        widthList.append(writeListToExcel(workSheet, followerUsernames, 2, VALUES_INSTANCE.URL_START_GITHUB))
+        widthList.append(writeListToExcel(workSheet, followedList, 3, None))
+        widthList.append(writeListToExcel(workSheet, unfollowedList, 4, None))
 
         workSheet.cell(row=2, column=6).value = len(followerUsernames)
         workSheet.cell(row=5, column=6).value = len(followedList)

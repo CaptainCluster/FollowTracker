@@ -57,7 +57,6 @@ class Values:
         self.EXCEL_UNDEFINED_VALUE  = "!UNDEFINED!"  #If a GitHub user has no name, an exception will clarify that
 
         self.USERNAME_COLUMN    = 1
-        self.NAME_COLUMN        = 2
         self.STARTING_ROW       = 2   #The first row for data insertion
 
         self.USERNAMES_DEFAULT_WIDTH    = len("usernames")
