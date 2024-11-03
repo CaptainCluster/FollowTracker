@@ -27,9 +27,9 @@ After the dependencies have been installed, you should be good to go. 👍
 
 🚯Before you scrape
 ---
-This program only scrapes data that has been, willingly, made **public** by GitHub users. It is **not** built in
-a way that encourages malicious actions, like spam. It is, instead, built for **research** purposes to help its
-users figure out how the followership of a selected profile has developed.
+This program receives its data through the **GitHub API**. This application was made for **research** purposes,
+and to help users figure out how their followership has developed. Please do not use the application for any
+**malicious** purposes, such as spamming.
 
 [Read the GitHub Acceptance Use Policy by clicking this!](https://docs.github.com/en/site-policy/acceptable-use-policies/github-acceptable-use-policies)
 
