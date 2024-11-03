@@ -54,17 +54,13 @@ def scrapeFollowers(gitHubFollowersUrl: str) -> list:
     requestContent = requests.get(gitHubFollowersUrl)
     soup = BeautifulSoup(requestContent.content, "html.parser")
 
-    gitHubNames = soup.find_all("span", class_="f4 Link--primary")
-    gitHubNamesList = appendDataToList(gitHubNames)
-
     gitHubUsernames = soup.find_all("span", class_="Link--secondary")
     gitHubUsernamesList = appendDataToList(gitHubUsernames)
 
     gitHubFollowers = []
 
-    for i in range (len(gitHubNames)):
+    for i in range (len(gitHubUsernames)):
         gitHubFollower = {
-            "name": gitHubNamesList[i],
             "username": gitHubUsernamesList[i]
         }
         gitHubFollowers.append(gitHubFollower)
@@ -83,11 +79,10 @@ def writeToJson(gitHubFollowerData: list) -> None:
 
     #Adding the data into two lists
     for dataType in gitHubFollowerData:
-        jsonListName.append(dataType["name"])
         jsonListUsername.append(dataType["username"])
     
     #Formulating the content of the JSON file
-    jsonContent = {"content": [{"names": jsonListName}, {"usernames": jsonListUsername}]}
+    jsonContent = {"content": [{"usernames": jsonListUsername}]}
 
     with open(VALUES_INSTANCE.FOLLOWERDATA_FILE_NAME, "w") as jsonFile:
         json.dump(jsonContent, jsonFile)
