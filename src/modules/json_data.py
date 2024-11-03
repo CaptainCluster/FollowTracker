@@ -12,7 +12,7 @@ from variables.values import Values
 
 VALUES_INSTANCE = Values()
 
-def getJsonData(jsonDataFileName: str):
+def getJsonData(jsonDataFileName: str) -> dict:
     """ Fetching data from a selected JSON file
 
     Args:
