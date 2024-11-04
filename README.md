@@ -13,6 +13,12 @@ finished state.
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
+❗Note
+---
+This software might have outdated comments or code that does not fit the standards I have today. This
+repository will likely not receive any significant updates anymore, and thus some things like this are 
+prone to persisting.
+
 📚Dependencies
 ---
 **The program will need multiple different libraries in order to work! Make sure you have installed all
